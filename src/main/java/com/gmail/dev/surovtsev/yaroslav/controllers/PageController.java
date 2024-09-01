@@ -1,6 +1,6 @@
 package com.gmail.dev.surovtsev.yaroslav.controllers;
 
-import com.gmail.dev.surovtsev.yaroslav.utils.Operation;
+import com.gmail.dev.surovtsev.yaroslav.util.Operation;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;

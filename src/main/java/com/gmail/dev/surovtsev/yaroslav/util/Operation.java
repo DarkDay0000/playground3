@@ -1,4 +1,4 @@
-package com.gmail.dev.surovtsev.yaroslav.utils;
+package com.gmail.dev.surovtsev.yaroslav.util;
 
 public enum Operation {
     multiplication,
