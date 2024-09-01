@@ -33,18 +33,18 @@ public class CustomerDAO {
                 .stream().findFirst().orElse(null);
     }
 
-    public Optional<Customer> show(String email) {
-        return jdbcTemplate.query("select * from customer where email = ?", new BeanPropertyRowMapper<>(Customer.class), email)
+    public Optional<Customer> show(String email, int id) {
+        return jdbcTemplate.query("select * from customer where email = ? and id <> ?", new BeanPropertyRowMapper<>(Customer.class), email, id)
                 .stream().findAny();
     }
 
     public void save(Customer customer) {
-        jdbcTemplate.update("insert into customer(first_name, last_name, email) values(?, ?, ?)", customer.getFirstName(), customer.getLastName(), customer.getEmail());
+        jdbcTemplate.update("insert into customer(first_name, last_name, email, address) values(?, ?, ?, ?)", customer.getFirstName(), customer.getLastName(), customer.getEmail(), customer.getAddress());
     }
 
     public void update(Integer id, Customer updatedCustomer) {
         System.out.println("updatedCustomer email: " + updatedCustomer.getEmail());
-        jdbcTemplate.update("update customer set first_name = ?, last_name = ?, email = ? where id = ?", updatedCustomer.getFirstName(), updatedCustomer.getLastName(), updatedCustomer.getEmail(), id);
+        jdbcTemplate.update("update customer set first_name = ?, last_name = ?, email = ?, address = ? where id = ?", updatedCustomer.getFirstName(), updatedCustomer.getLastName(), updatedCustomer.getEmail(), updatedCustomer.getAddress(), id);
     }
 
     public void delete(Integer id) {
@@ -63,6 +63,7 @@ public class CustomerDAO {
             customer.setFirstName("firstname" + i);
             customer.setLastName("lastName" + i);
             customer.setEmail("email" + i + "@gmail.com");
+            customer.setAddress("address" + i);
             customers.add(customer);
         }
         return customers;
@@ -89,6 +90,7 @@ public class CustomerDAO {
                 ps.setString(2, customers.get(i).getFirstName());
                 ps.setString(3, customers.get(i).getLastName());
                 ps.setString(4, customers.get(i).getEmail());
+                ps.setString(5, customers.get(i).getAddress());
             }
 
             @Override

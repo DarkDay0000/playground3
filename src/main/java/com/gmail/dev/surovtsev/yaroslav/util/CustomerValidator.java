@@ -24,7 +24,7 @@ public class CustomerValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         Customer customer = (Customer) target;
-        if (customerDAO.show(customer.getEmail()).isPresent()) {
+        if (customerDAO.show(customer.getEmail(), customer.getId()).isPresent()) {
             errors.rejectValue("email", "", "Email already exists");
         }
 
