@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -43,7 +42,6 @@ public class CustomerDAO {
     }
 
     public void update(Integer id, Customer updatedCustomer) {
-        System.out.println("updatedCustomer email: " + updatedCustomer.getEmail());
         jdbcTemplate.update("update customer set first_name = ?, last_name = ?, email = ?, address = ? where id = ?", updatedCustomer.getFirstName(), updatedCustomer.getLastName(), updatedCustomer.getEmail(), updatedCustomer.getAddress(), id);
     }
 
