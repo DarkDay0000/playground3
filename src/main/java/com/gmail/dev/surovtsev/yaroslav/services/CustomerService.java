@@ -3,11 +3,14 @@ package com.gmail.dev.surovtsev.yaroslav.services;
 import com.gmail.dev.surovtsev.yaroslav.models.Customer;
 import com.gmail.dev.surovtsev.yaroslav.repositories.CustomersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional(readOnly = true)
@@ -24,12 +27,18 @@ public class CustomerService {
         return customersRepository.findAll();
     }
 
-    public Optional<Customer> findById(int id) {
-        return customersRepository.findById(id);
+    public List<Customer> findAllWithPagination(int pageNumber, int size) {
+        Page<Customer> page = customersRepository.findAll(PageRequest.of(pageNumber, size, Sort.by("firstName")));
+        return page.getContent();
+    }
+
+    public Customer findById(int id) {
+        return customersRepository.findById(id).orElse(null);
     }
 
     @Transactional
     public Customer save(Customer customer) {
+        customer.setCreatedAt(new Date());
         return customersRepository.save(customer);
     }
 
@@ -42,5 +51,9 @@ public class CustomerService {
     @Transactional
     public void deleteById(int id) {
         customersRepository.deleteById(id);
+    }
+
+    public Customer findByEmail(String email) {
+        return customersRepository.findByEmail(email);
     }
 }

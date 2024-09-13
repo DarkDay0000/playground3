@@ -11,6 +11,8 @@
 <p th:text="${customer.getLastName()}">VALUE</p>
 <p th:text="${customer.getEmail()}">VALUE</p>
 <p th:text="${customer.getAddress()}">VALUE</p>
+<p th:text="${customer.getDateOfBirth()}">VALUE</p>
+<p th:text="${customer.getCreatedAt()}">VALUE</p>
 
 <a th:href="@{/customers/{id}/edit(id=${customer.getId()})}">Edit</a>
 
